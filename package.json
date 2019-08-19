@@ -2,6 +2,8 @@
   "name": "redis-cluster-tools",
   "version": "0.0.0",
   "scripts": {
+    "cluster:start": "tools/redis-cluster/start.sh",
+    "cluster:stop": "tools/redis-cluster/stop.sh",
     "lint": "npm run lint:tsc && npm run lint:eslint",
     "lint:all": "npm run all -- run lint",
     "lint:tsc": "tsc -p tsconfig.json --noEmit",
