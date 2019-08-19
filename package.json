@@ -1,5 +1,5 @@
 {
-  "name": "node-module-boilerplate",
+  "name": "redis-cluster-tools",
   "version": "0.0.0",
   "scripts": {
     "lint": "npm run lint:tsc && npm run lint:eslint",
