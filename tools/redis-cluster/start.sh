@@ -15,6 +15,14 @@ cluster-config-file /tmp/nodes-700$1.conf
 EOF
 }
 
+# kill old instances
+for i in {1..4}
+do
+  lsof -ti tcp:700$i | xargs kill
+done
+
+sleep 1
+
 # start the cluster nodes
 for i in {1..4}
 do
@@ -22,7 +30,7 @@ do
   redis_conf $i | redis-server -
 done
 
-sleep 3
+sleep 1
 
 # create cluster
 redis-cli --cluster create 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 --cluster-replicas 0 --cluster-yes
