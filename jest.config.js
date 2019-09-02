@@ -8,4 +8,9 @@ module.exports = {
   testEnvironment: 'node',
   moduleFileExtensions: ['ts', 'js', 'json', 'node'],
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/' }),
+  globals: {
+    'ts-jest': {
+      diagnostics: false,
+    },
+  },
 };
