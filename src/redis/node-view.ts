@@ -1,12 +1,12 @@
-import { ImportingSlots, LinkState, MigratingSlots, NormalSlots } from '@/typings';
+import { LinkState } from '@/typings';
 
 const NODE_INFO_REGEX = /(?<id>[a-z0-9]+)\s(?<host>\d+\.\d+\.\d+\.\d+)?:(?<port>\d+)(@(?<clusterPort>\d+))?\s(?<flags>[^\s]+)\s(?<masterId>[a-z0-9-]+)\s(?<pingSent>\d+)\s(?<pingRecv>\d+)\s(?<configEpoch>\d+)\s(?<linkState>[a-z]+)(\s(?<slots>.+))?/;
 
 const mapSlots = (slots: string[]) => {
   const mappedSlots = {
-    own: {} as NormalSlots,
-    importing: {} as ImportingSlots,
-    migrating: {} as MigratingSlots,
+    own: new Set<number>(),
+    importing: new Map<number, string>(),
+    migrating: new Map<number, string>(),
   };
 
   for (const slotOrRange of slots) {
@@ -15,22 +15,22 @@ const mapSlots = (slots: string[]) => {
       const slot = parseInt(slotOrRange.slice(1, slotOrRange.indexOf('-')), 10);
       const nodeId = slotOrRange.slice(slotOrRange.indexOf('-') + 3, -1);
       if (slotOrRange.includes('-<-')) {
-        mappedSlots.importing[slot] = nodeId;
+        mappedSlots.importing.set(slot, nodeId);
       } else {
-        mappedSlots.migrating[slot] = nodeId;
+        mappedSlots.migrating.set(slot, nodeId);
       }
     }
     // range
     else if (slotOrRange.includes('-')) {
       const [start, end] = slotOrRange.split('-');
       for (let slot = Number(start); slot <= Number(end); slot += 1) {
-        mappedSlots.own[slot] = true;
+        mappedSlots.own.add(slot);
       }
     }
     // single
     else {
       const slot = parseInt(slotOrRange, 10);
-      mappedSlots.own[slot] = true;
+      mappedSlots.own.add(slot);
     }
   }
   return mappedSlots;
@@ -43,9 +43,9 @@ export class NodeView {
   public readonly flags: string;
   public readonly masterId: string;
   public readonly linkState: LinkState;
-  public readonly slots: NormalSlots;
-  public readonly importingSlots: ImportingSlots;
-  public readonly migratingSlots: MigratingSlots;
+  public readonly ownSlots: Set<number>;
+  public readonly importingSlots: Map<number, string>;
+  public readonly migratingSlots: Map<number, string>;
 
   constructor(nodeInfo: string) {
     const parsed = NODE_INFO_REGEX.exec(nodeInfo);
@@ -62,7 +62,7 @@ export class NodeView {
     this.flags = flags;
     this.masterId = masterId;
     this.linkState = linkState as LinkState;
-    this.slots = mappedSlots.own;
+    this.ownSlots = mappedSlots.own;
     this.importingSlots = mappedSlots.importing;
     this.migratingSlots = mappedSlots.migrating;
   }
