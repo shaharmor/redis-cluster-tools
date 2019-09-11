@@ -16,7 +16,7 @@ EOF
 }
 
 # kill old instances
-for i in {1..4}
+for i in {1..6}
 do
   lsof -ti tcp:700$i | xargs kill
 done
@@ -24,7 +24,7 @@ done
 sleep 1
 
 # start the cluster nodes
-for i in {1..4}
+for i in {1..6}
 do
   rm /tmp/redis-700$i.pid /tmp/redis-700$i.log /tmp/nodes-700$i.conf
   redis_conf $i | redis-server -
