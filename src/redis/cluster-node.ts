@@ -6,13 +6,21 @@ import { Logger } from '@/utils/logger';
 export class ClusterNode {
   public readonly host: string;
   public readonly port: number;
+  public readonly redis: Redis.Redis;
   public nodes: NodeView[];
-  private myself?: NodeView;
+  private myself!: NodeView;
   private logger: Logger;
-  private readonly redis: Redis.Redis;
 
-  public get id() {
-    return this.myself && this.myself.id;
+  public get id(): string {
+    return this.myself.id;
+  }
+
+  public get ownSlots() {
+    return this.myself.ownSlots;
+  }
+
+  public isMaster() {
+    return this.myself.flags.includes('master');
   }
 
   public static async fromHostPort(host: string, port: number) {
@@ -46,6 +54,35 @@ export class ClusterNode {
     await this.redis.cluster('FORGET', nodeId);
     await this.updateClusterView();
     this.logger.log(`Forgot node ${host}:${port}`);
+  }
+
+  public async migrateKeysInSlot(
+    toHost: string,
+    toPort: number,
+    slot: number,
+    pipeline = 20,
+    timeout = 5000
+  ) {
+    let keys: string[];
+    do {
+      keys = await this.redis.cluster('GETKEYSINSLOT', slot, pipeline);
+      if (keys.length > 0) {
+        await this.redis.migrate(toHost, toPort, '', 0, timeout, 'REPLACE', 'KEYS', ...keys);
+      }
+    } while (keys.length > 0);
+  }
+
+  public async setSlotState(
+    slot: number,
+    type: 'IMPORTING' | 'MIGRATING' | 'NODE',
+    nodeId: string
+  ) {
+    // TODO: update internal slot mapping!
+    return this.redis.cluster('SETSLOT', slot, type, nodeId);
+  }
+
+  public async reset() {
+    return this.redis.cluster('RESET', 'SOFT');
   }
 
   public async disconnect() {
