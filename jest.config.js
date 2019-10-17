@@ -6,6 +6,7 @@ const { compilerOptions } = require('./tsconfig');
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
+  maxWorkers: 1, // tests use the same redis instances
   moduleFileExtensions: ['ts', 'js', 'json', 'node'],
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/' }),
   globals: {
