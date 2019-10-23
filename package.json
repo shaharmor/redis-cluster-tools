@@ -15,35 +15,35 @@
     "reformat:glob": "prettier --write"
   },
   "devDependencies": {
-    "@commitlint/cli": "8.1.0",
+    "@commitlint/cli": "8.2.0",
     "@shaharmor/commitlint-config": "0.0.1",
     "@shaharmor/eslint-config": "1.1.2",
     "@shaharmor/prettier-config": "1.0.1",
     "@shaharmor/tsconfig": "0.0.4",
-    "@types/jest": "24.0.18",
+    "@types/jest": "24.0.19",
     "crypto-random-string": "3.0.1",
-    "execa": "2.0.4",
-    "husky": "3.0.4",
+    "execa": "3.2.0",
+    "husky": "3.0.9",
     "jest": "24.9.0",
-    "lint-staged": "9.2.3",
+    "lint-staged": "9.4.2",
     "p-times": "2.1.0",
     "prettier": "1.18.2",
-    "ts-jest": "24.0.2",
-    "ts-node": "8.3.0",
-    "tsconfig-paths": "3.8.0",
-    "typescript": "3.5.3"
+    "ts-jest": "24.1.0",
+    "ts-node": "8.4.1",
+    "tsconfig-paths": "3.9.0",
+    "typescript": "3.6.4"
   },
   "dependencies": {
-    "@types/ioredis": "4.0.15",
-    "@typescript-eslint/eslint-plugin": "2.0.0",
+    "@types/ioredis": "4.0.18",
+    "@typescript-eslint/eslint-plugin": "2.5.0",
     "delay": "4.3.0",
-    "eslint": "6.2.0",
+    "eslint": "6.5.1",
     "eslint-import-resolver-typescript": "1.1.1",
     "eslint-plugin-import": "2.18.2",
-    "eslint-plugin-jest": "22.15.1",
-    "eslint-plugin-prettier": "3.1.0",
-    "ioredis": "4.14.0",
+    "eslint-plugin-jest": "22.20.0",
+    "eslint-plugin-prettier": "3.1.1",
+    "ioredis": "4.14.1",
     "p-map": "3.0.0",
-    "p-queue": "6.1.1"
+    "p-queue": "6.2.0"
   }
 }
