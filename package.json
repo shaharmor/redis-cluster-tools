@@ -34,7 +34,7 @@
     "delay": "4.3.0",
     "ioredis": "4.14.1",
     "p-map": "3.0.0",
-    "p-queue": "6.2.0"
+    "p-queue": "6.2.1"
   },
   "devDependencies": {
     "@commitlint/cli": "8.2.0",
