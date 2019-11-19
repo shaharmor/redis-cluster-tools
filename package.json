@@ -44,7 +44,7 @@
     "@shaharmor/tsconfig": "0.1.1",
     "@types/ioredis": "4.0.19",
     "@types/jest": "24.0.23",
-    "@typescript-eslint/eslint-plugin": "2.7.0",
+    "@typescript-eslint/eslint-plugin": "2.8.0",
     "crypto-random-string": "3.0.1",
     "eslint": "6.6.0",
     "eslint-import-resolver-typescript": "2.0.0",
