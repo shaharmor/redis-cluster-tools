@@ -57,7 +57,7 @@
     "lint-staged": "9.4.3",
     "p-times": "2.1.0",
     "prettier": "1.19.1",
-    "sort-package-json": "1.23.1",
+    "sort-package-json": "1.27.0",
     "ts-jest": "24.2.0",
     "ts-node": "8.5.2",
     "tsconfig-paths": "3.9.0",
