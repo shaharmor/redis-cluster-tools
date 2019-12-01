@@ -46,7 +46,7 @@
     "@types/jest": "24.0.23",
     "@typescript-eslint/eslint-plugin": "2.8.0",
     "crypto-random-string": "3.0.1",
-    "eslint": "6.7.1",
+    "eslint": "6.7.2",
     "eslint-import-resolver-typescript": "2.0.0",
     "eslint-plugin-import": "2.18.2",
     "eslint-plugin-jest": "23.0.4",
